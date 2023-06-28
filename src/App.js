@@ -1,4 +1,8 @@
-import React, {useState, useEffect} from "react";
-import { ReactDOM } from "react";
 
-
+export const App = () => {
+    return (
+        <div>
+            <h1>Weather</h1>
+        </div>
+    )
+}

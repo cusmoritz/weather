@@ -20,5 +20,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "dependencies": {
+    "react-dom": "^18.2.0"
   }
 }
