@@ -1,10 +1,10 @@
 import { SearchBar } from "./components/SearchBar";
 import { useEffect } from "react";
-import { locationCall } from './api'
+// import { locationCall } from './api'
 
 const handleLocationLoad = async () => {
     console.log('hello now.');
-    await locationCall();
+    // await locationCall();
 };
 
 export const App = () => {
