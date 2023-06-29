@@ -6,6 +6,7 @@ export const SearchBar = () => {
     
     const handleSearch = () => {
         console.log(search)
+        // make an api call for locations
     }
 
     return (
@@ -16,6 +17,11 @@ export const SearchBar = () => {
                 onChange={(event) => setSearch(event.target.value)}>
             </input>
             <button type="submit" onClick={handleSearch}>Search</button>
+            {!search ? null : (
+                <div className="search-results">
+                    
+                </div>
+            )}
         </div>
     )
 }
