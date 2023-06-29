@@ -4,15 +4,17 @@ const cors = require('cors');
 console.log(module)
 // import { locationGuess } from './api'
 
+const SECRET = process.env;
+console.log(process.env)
+
 const handleLocationLoad = async () => {
     console.log('hello now.');
     // await locationCall();
 };
 
-const call = () => {fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=', { 
+const call = () => {fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${SECRET}`, { 
 	method: "POST" ,
 	body: { 
-		name: "myDummyName" 
 	} 
 }) 
 .then(resp => resp.json()) 
