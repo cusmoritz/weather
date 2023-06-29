@@ -84,7 +84,40 @@ const addressFromLatLong = async (lat, long) => {
     }
 }
 
-locationCall().then(result => addressFromLatLong(result.location.lat, result.location.lng));
+// locationCall().then(result => addressFromLatLong(result.location.lat, result.location.lng));
+
+const weatherCoordsPath = "https://api.weather.gov/points/"; 
+
+const weatherFromCoordinates = async(lat, long) => {
+    try {
+        const response = await fetch(`${weatherCoordsPath}${lat}%2C${long}`, {
+            method: "GET",
+        });
+        const weather = await response.json();
+        console.log('weather response: ', weather.properties.forecastHourly);
+
+        // returns weather array for up to 100 hours in the future
+        const hourlyForcastAPI = weather.properties.forecastHourly;
+
+        // returns weather array for Sunday, Sunday Night, Monday, Monday Night... etc
+        const forcastAPI = weather.properties.forecast;
+
+        const forcast = await fetch(`${hourlyForcastAPI}`, {
+            method: "GET",
+        });
+
+        // returns weather array for up to 100 hours in the future
+        const hourly = await forcast.json();
+        // console.log('hourly: ', hourly)
+        console.log('hourly properties: ', hourly.properties.periods)
+        return hourly.properties.periods;
+    } catch (error) {
+        console.log('there was an error getting weather');
+        throw error;
+    }
+};
+
+locationCall().then(response => {weatherFromCoordinates(response.location.lat, response.location.lng)});
 
 // to get the weather:
     // get the coordinates (from address or from load) => 
