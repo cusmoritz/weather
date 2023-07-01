@@ -37,6 +37,22 @@
     border-radius: 20px;
     padding: 15px;
     margin-bottom: 15px;
+
+  }
+
+  /* .weather-switch {
+    background-color: linear-gradient(to bottom, rgb(255 255 255),rgb(255 255 255));
+    border-left: solid 3px pink;
+  } */
+
+  .switcher {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 5px;
+    padding-top: 15px;
+    border: 2px solid lightblue;
+    border-radius: 20px;
+    background-image: linear-gradient(to top, lightblue, white);
   }
 
   /*
