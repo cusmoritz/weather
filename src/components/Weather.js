@@ -6,11 +6,12 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
     console.log('standard: ', standardWeather)
     console.log('hourly: ', hourlyWeather)
 
-    const [weatherType, setWeatherType] = useState(0);
+    const [weatherType, setWeatherType] = useState(true);
 
-    // const handleWeatherSwitch = () => {
-    //     setWeatherType()
-    // }
+    const handleWeatherSwitch = () => {
+        setWeatherType(!weatherType)
+    }
+
     // useEffect(() => {
     //     setWeatherType(standardWeather)
     // }, [])
@@ -18,14 +19,14 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
     return (
         <div className="weather-container">
             <div className="switcher">
-                <button onClick={setWeatherType(0)} className="weather-switch">
+                <button onClick={event => (event.preventDefault(), handleWeatherSwitch())} className="weather-switch">
                     Daily
                 </button>
-                <button onClick={setWeatherType(1)} className="weather-switch">
+                <button onClick={event => (event.preventDefault(), handleWeatherSwitch())} className="weather-switch">
                     Hourly
                 </button>
             </div>
-            {weatherType==0 ? 
+            {weatherType===true ? 
             standardWeather.map((segment) => {
                 return (
                     <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} >
@@ -43,7 +44,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
             hourlyWeather.map((segment) => {
                 return (
                     <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} >
-                        <h5>{segment.name}: {segment.temperature} degrees</h5>
+                        <h5>{segment.startTime}: {segment.temperature} degrees</h5>
                         <p>{segment.shortForecast}.</p>
                         <p>{segment.relativeHumidity.value} percent humidity.</p>
                         <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
