@@ -1,13 +1,12 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 
 const server = express();
 
 server.use(express.json());
 
 server.use(cors());
-
-require('dotenv').config();
 
 // this is to fix our fetch function
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -34,6 +33,13 @@ const locationCall = async () => {
     }
 };
 
+const fakeAddress = {
+    num: 200,
+    street: "west lake",
+    city: "denver",
+    state: "CO"
+}
+
 // geocoding is for going from an address => lat / long
 // geocoding api:
 // https://maps.googleapis.com/maps/api/geocode/outputFormat?parameters
@@ -45,20 +51,23 @@ const locationCall = async () => {
 
 const geocodeAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
 
-const latLongFromAddress = async ({num, street, city, state, postal_code}) => {
+const latLongFromAddress = async ({num, street, city, state, zip_code}) => {
     try {
-        if (postal_code) {
-            const postalCodeLatLong = await fetch(`${geocodeAPI}address=${postal_code}&key=${SECRET}`, {
+        if (zip_code) {
+            console.log('We got a zip code.')
+            const zipcodeLatLong = await fetch(`${geocodeAPI}address=${zip_code}&key=${SECRET}`, {
                 method: "GET",
             });
-            const postalResponse = postalCodeLatLong.json();
-            return postalResponse;
+            const zipResponse = await zipcodeLatLong.json();
+            console.log('zipResponse: ', zipResponse.results[0])
+            return zipResponse;
         } else {
-            const address = await fetch(`${geocodeAPI}address=${num}%20${street}%20${city}%20${state}?key=${SECRET}`, {
+            console.log('No zip code.')
+            const address = await fetch(`${geocodeAPI}address=${num}%20${street}%20${city}%20${state}&key=${SECRET}`, {
                 method: "GET",
             });
             const response = await address.json();
-            console.log('response from address: ', response);
+            console.log('response from address: ', response.results);
             return response;
         }
 
@@ -123,7 +132,9 @@ const weatherFromCoordinates = async(lat, long) => {
     }
 };
 
-locationCall().then(response => {weatherFromCoordinates(response.location.lat, response.location.lng)});
+// locationCall().then(response => {weatherFromCoordinates(response.location.lat, response.location.lng)});
+
+latLongFromAddress(fakeAddress);
 
 // to get the weather:
     // get the coordinates (from address or from load) => 
