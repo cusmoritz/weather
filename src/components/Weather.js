@@ -4,7 +4,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
     console.log('standard: ', standardWeather)
     return (
         <div className="weather-container">
-            <span className="switch">Daily</span><span className="switch">Hourly</span>
+            <span>Daily</span><span>Hourly</span>
             {standardWeather.map((segment) => {
                 return (
                     <div className="weather-segment" key={segment.endTime}>

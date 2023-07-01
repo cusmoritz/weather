@@ -5,6 +5,13 @@
     border: 0;
   }
 
+  .weather-segment {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+
   /*
   * Skeleton V2.0.4
   * Copyright 2014, Dave Gamache
