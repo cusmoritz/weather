@@ -7,7 +7,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
             <span>Daily</span><span>Hourly</span>
             {standardWeather.map((segment) => {
                 return (
-                    <div className="weather-segment" key={segment.endTime}>
+                    <div className={`weather-segment ${segment.temperature}`} key={segment.endTime}>
                         <h5>{segment.name}: {segment.temperature} degrees</h5>
                         <p>{segment.shortForecast}.</p>
                         <p>{segment.relativeHumidity.value} percent humidity.</p>

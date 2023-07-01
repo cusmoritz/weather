@@ -5,6 +5,15 @@
     border: 0;
   }
 
+  :root {
+    --color-red: hsl(0deg 80% 50%);
+    --color-blue: hsl(270deg 75% 60%);
+  }
+
+  .weather-segment  {
+    background-color: var(--color-blue);
+}
+
   .weather-segment {
     border: 1px solid black;
     border-radius: 20px;
