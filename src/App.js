@@ -3,15 +3,20 @@ import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { ReactDOM } from "react";
 import { LoadGuess } from "./components/LoadGuess";
+import { Weather } from "./components/Weather";
 
 const SECRET = process.env.REACT_APP_GOOGLE_API;
 
 const geocodeAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
 
+const weatherCoordsPath = "https://api.weather.gov/points/"; 
+
 export const App = () => {
 
     const [locationLoad, setLocationLoad] = useState({});
     const [postalLoad, setPostalLoad] = useState("");
+    const [standardWeather, setStandardWeather] = useState({});
+    const [hourlyWeather, setHourlyWeather] = useState({})
 
     // function that finds estimated coordinates for a device
     const locationCall = async () => {
@@ -46,15 +51,49 @@ export const App = () => {
 
     useEffect(() => {
         locationCall().then(results => addressFromLatLong(results.lat, results.lng))
-
     }, [])
+
+    const confirmPostal = async () => {
+        try {
+            const response = await fetch(`${weatherCoordsPath}${locationLoad.lat}%2C${locationLoad.lng}`, {
+                method: "GET",
+            });
+            const weather = await response.json();
+
+            // returns weather array for up to 100 hours in the future
+            const hourlyForcastAPI = weather.properties.forecastHourly;
+
+            // returns weather array for Sunday, Sunday Night, Monday, Monday Night... etc
+            const forcastAPI = weather.properties.forecast;
+
+            const hourlyForcast = await fetch(`${hourlyForcastAPI}`, {
+                method: "GET",
+            });
+            const forcast = await fetch(`${forcastAPI}`, {
+                method: "GET",
+            });
+    
+            // returns weather array for up to 100 hours in the future
+            const hourly = await hourlyForcast.json();
+            const daily = await forcast.json();
+            setHourlyWeather(hourly.properties.periods);
+            setStandardWeather(daily.properties.periods);
+
+            // console.log('weather response: ', daily.properties.periods);
+            return {hourly: hourly.properties.periods, standard: daily.properties.periods};
+        } catch (error) {
+            console.log('there was an error getting the weather for that postal code.');
+            throw error;
+        }
+    };
 
     return (
         <div className="container">
-            <h1>Weather</h1>
+            <h1>Chance of Rain</h1>
             <p>{locationLoad.lat}, {locationLoad.lng}</p>
-            {!postalLoad ? console.log("Nope") : <p>Looks like you are near the {postalLoad} postal code. Use that?</p>}
+            {!postalLoad ? console.log("Nope") : <p>Looks like you are near {postalLoad}. <button onClick={confirmPostal}>Use that?</button></p>}
             <SearchBar secret={SECRET} />
+            {(Object.keys(standardWeather).length === 0 && Object.keys(hourlyWeather).length === 0) ? null : <Weather hourlyWeather={hourlyWeather} standardWeather={standardWeather}/>}
             <Footer />
         </div>
     )
