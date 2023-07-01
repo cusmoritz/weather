@@ -1,5 +1,6 @@
 import { SearchBar } from "./components/SearchBar";
 import { useEffect } from "react";
+import { Footer } from "./components/Footer";
 // import { locationCall } from "./api";
 
 // console.log(module)
@@ -21,6 +22,7 @@ export const App = () => {
         <div className="container">
             <h1>Weather</h1>
             <SearchBar />
+            <Footer />
         </div>
     )
 }

@@ -11,7 +11,9 @@ export const SearchBar = () => {
 
     return (
         <div className="search">
+            <label htmlFor="search-bar">Search for an address or zip code.</label>
             <input 
+                className="search-bar"
                 placeholder="Search" 
                 value={search} 
                 onChange={(event) => setSearch(event.target.value)}>
@@ -19,9 +21,9 @@ export const SearchBar = () => {
             <button type="submit" onClick={handleSearch}>Search</button>
             {!search ? null : (
                 <div className="search-results">
-                    
+
                 </div>
             )}
         </div>
     )
-}
+};

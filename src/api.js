@@ -102,15 +102,21 @@ const weatherFromCoordinates = async(lat, long) => {
         // returns weather array for Sunday, Sunday Night, Monday, Monday Night... etc
         const forcastAPI = weather.properties.forecast;
 
-        const forcast = await fetch(`${hourlyForcastAPI}`, {
+        const hourlyForcast = await fetch(`${hourlyForcastAPI}`, {
+            method: "GET",
+        });
+        const forcast = await fetch(`${forcastAPI}`, {
             method: "GET",
         });
 
         // returns weather array for up to 100 hours in the future
-        const hourly = await forcast.json();
-        // console.log('hourly: ', hourly)
-        console.log('hourly properties: ', hourly.properties.periods)
-        return hourly.properties.periods;
+        const hourly = await hourlyForcast.json();
+        const daily = await forcast.json();
+
+        // daily returns an array of objects for Today, Tonight, Sunday Night ... etc
+        // hourly returns array of objects for every hour, starting with the hour you are in
+        console.log('daily properties: ', daily.properties.periods)
+        return {hourly: hourly.properties.periods, standard: daily.properties.periods};
     } catch (error) {
         console.log('there was an error getting weather');
         throw error;
@@ -129,3 +135,6 @@ locationCall().then(response => {weatherFromCoordinates(response.location.lat, r
             // properties.forcastHourly: "https://api.weather.gov/gridpoints/BOU/61,99/forecast/hourly"
         // ping those
 
+module.exports = {
+    locationCall,
+}
