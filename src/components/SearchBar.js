@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 
-export const SearchBar = () => {
+export const SearchBar = ({secret}) => {
     
     const [search, setSearch] = useState("");
     
-    const handleSearch = () => {
-        console.log(search)
-        // make an api call for locations
+    const fetchAddress = async () => {
+        try {
+            const resp = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${secret}`, {
+                method: "POST"
+            });
+            const latLong = await resp.json();
+            console.log(latLong);
+        } catch (error) {
+            console.log('there was an error fetching that address.')
+            throw error;
+        }
     }
 
     return (
@@ -18,7 +26,7 @@ export const SearchBar = () => {
                 value={search} 
                 onChange={(event) => setSearch(event.target.value)}>
             </input>
-            <button type="submit" onClick={handleSearch}>Search</button>
+            <button type="submit" onClick={fetchAddress}>Search</button>
             {!search ? null : (
                 <div className="search-results">
 

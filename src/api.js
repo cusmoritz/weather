@@ -17,7 +17,6 @@ const SECRET = process.env.SECRET;
 // start the server
 server.listen(3000, () => {
     console.log('server listening')
-
 });
 
 const locationCall = async () => {
@@ -91,7 +90,7 @@ const addressFromLatLong = async (lat, long) => {
     } catch (error) {
         console.log('there was an error getting an address')
     }
-}
+};
 
 // locationCall().then(result => addressFromLatLong(result.location.lat, result.location.lng));
 
