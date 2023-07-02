@@ -30,20 +30,24 @@
     background-position: 50% 50%;
     background-size: cover;
     box-shadow: 10px 10px 5px lightblue;
-}
-
-  .weather-segment {
     border: 1px solid black;
     border-radius: 20px;
     padding: 15px;
     margin-bottom: 15px;
+}
 
-  }
-
-  /* .weather-switch {
-    background-color: linear-gradient(to bottom, rgb(255 255 255),rgb(255 255 255));
-    border-left: solid 3px pink;
+  /* .weather-icon {
+    z-index: -1;
+    float:right;
   } */
+
+  /* .centered {
+    position:relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-20%, 0);
+  } */
+  
 
   .switcher {
     display: flex;

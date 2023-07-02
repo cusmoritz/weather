@@ -30,13 +30,20 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
             standardWeather.map((segment) => {
                 return (
                     <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} >
-                        <h5>{segment.name}: {segment.temperature} degrees</h5>
-                        <p>{segment.shortForecast}.</p>
-                        <p>{segment.relativeHumidity.value} percent humidity.</p>
-                        <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
-                        <img src={segment.icon}/>
-                        <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}</p>
-                        <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p>
+                        {/* "https://api.weather.gov/icons/land/day/tsra_hi,30?size=medium"
+                        "https://api.weather.gov/icons/land/day/few?size=medium"
+                        "https://api.weather.gov/icons/land/day/bkn/tsra_sct,50?size=medium"
+                        "https://api.weather.gov/icons/land/night/tsra_sct,50/tsra_sct,40?size=medium" */}
+                        <img className="weather-icon" src={segment.icon}/>
+                        <div className="centered">
+                            <h5>{segment.name}: {segment.temperature} degrees</h5>
+                            <p>{segment.shortForecast}.</p>
+                            <p>{segment.relativeHumidity.value} percent humidity.</p>
+                            <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
+                            <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}</p>
+                            <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p>
+                        </div>
+
                     </div>
                 )
             })
@@ -44,11 +51,11 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
             hourlyWeather.map((segment) => {
                 return (
                     <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} >
+                        <img className="weather-icon" src={segment.icon}/>
                         <h5>{segment.startTime}: {segment.temperature} degrees</h5>
                         <p>{segment.shortForecast}.</p>
                         <p>{segment.relativeHumidity.value} percent humidity.</p>
                         <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
-                        <img src={segment.icon}/>
                         <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}</p>
                         <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p>
                     </div>
