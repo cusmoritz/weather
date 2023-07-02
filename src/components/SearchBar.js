@@ -19,7 +19,7 @@ export const SearchBar = ({secret}) => {
 
     return (
         <div>
-            <label htmlFor="search-bar">Search for an address or zip code.</label>
+            <label htmlFor="search-bar">Search for an address or postal code.</label>
             <input 
                 type="search"
                 className="search-bar"

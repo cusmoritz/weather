@@ -55,21 +55,6 @@
   padding-left: 1%;
 }
 
-  .weather-icon {
-    z-index: -1;
-    float:right;
-    
-    /* color: linear-gradient(to right, rgb(255 255 255), rgb(255 255 255 / 0%)) */
-  }
-
-  /* .centered {
-    position:relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-20%, 0);
-  } */
-  
-
   .switcher {
     display: flex;
     justify-content: space-around;

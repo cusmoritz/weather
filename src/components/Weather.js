@@ -78,7 +78,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
                 // `url(${segment.icon})`
                 return (
                     <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} style={{
-                        backgroundImage: `url(${segment.icon})`
+                        backgroundImage: `url(${segment.icon})`,
                       }}>
                         {/* "https://api.weather.gov/icons/land/day/tsra_hi,30?size=medium"
                         "https://api.weather.gov/icons/land/day/few?size=medium"
@@ -90,7 +90,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
                             <p>{segment.shortForecast}.</p>
                             {/* <p>{segment.relativeHumidity.value} percent humidity.</p> */}
                             <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
-                            <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}</p>
+                            <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}.</p>
                             {/* <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p> */}
                         </div>
 
