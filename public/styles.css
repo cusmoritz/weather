@@ -18,14 +18,18 @@
   windy: 'https://media.istockphoto.com/id/1443077430/photo/dry-grass-with-long-stems-in-windy-weather-sunny-autumn-day-nature-abstract-background.webp?b=1&s=170667a&w=0&k=20&c=IvLqmYbkppccVO0e4S6YcIzOMd9XSpc5-bXwfnJ1P98='
   light_snow: 'https://img5.goodfon.com/wallpaper/big/5/6c/zima-sneg-sugroby-tekstura.jpg'
   heavy_snow: 'https://previews.123rf.com/images/kobzev3179/kobzev31791911/kobzev3179191100047/135096576-falling-snow-on-a-black-background-heavy-snowfall-concept-winter-snow-background-blizzard.jpg'
-  
+  sunny: 'https://static.vecteezy.com/system/resources/previews/002/596/183/original/blue-sky-and-clouds-wallpaper-background-and-sunny-day-free-photo.jpg'
+  chance_of_rain: "https://clarksvillenow.sagacom.com/files/2020/11/shutterstock_1393820171-1200x768.jpg"
+  partlyCloudy: "https://www.wkbn.com/wp-content/uploads/sites/48/2021/03/clouds-cloudy-sky-spring-summer-fall-winter-weather-generic-8-1.jpg?w=1280"
+  thunderstorms: "https://img.freepik.com/premium-photo/thunderstorm-with-lightnings-stormy-sky-city-dramatic-weather-background-digital-illustrati_124507-12848.jpg"
+  mostly clear: "https://c1.wallpaperflare.com/preview/106/652/872/sky-blue-cloud-clear.jpg"
+  mostly_cloudy: "https://www.rochesterfirst.com/wp-content/uploads/sites/66/2021/04/sky-1107579_1920.jpg"
   */
 
   .weather-segment  {
     display: flex;
     height: 100%;
     opacity: 0.9;
-    background-image: var(--light_snow);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     background-size: cover;
@@ -36,10 +40,18 @@
     margin-bottom: 15px;
 }
 
-  /* .weather-icon {
+.weather-info {
+  height: 100%;
+  width: 100%;
+  padding-left: 1%;
+}
+
+  .weather-icon {
     z-index: -1;
     float:right;
-  } */
+    
+    /* color: linear-gradient(to right, rgb(255 255 255), rgb(255 255 255 / 0%)) */
+  }
 
   /* .centered {
     position:relative;
