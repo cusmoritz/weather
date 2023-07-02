@@ -36,12 +36,17 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
     return (
         <div className="weather-container">
             <div className="switcher">
-                <button onClick={event => (event.preventDefault(), handleWeatherSwitch())} className="weather-switch">
-                    Daily
-                </button>
-                <button onClick={event => (event.preventDefault(), handleWeatherSwitch())} className="weather-switch">
-                    Hourly
-                </button>
+                {weatherType==true 
+                ?                 
+                <button 
+                    onClick={event => (event.preventDefault(), handleWeatherSwitch())} className="weather-switch">
+                    Switch to Hourly
+                </button> 
+                :                 
+                <button 
+                    onClick={event => (event.preventDefault(), handleWeatherSwitch())} className="weather-switch">
+                    Switch to Daily
+                </button>}
             </div>
             {/* "Chance Showers And Thunderstorms then Mostly Clear"
             "Slight Chance Showers And Thunderstorms then Partly Cloudy"
@@ -80,13 +85,13 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
                         "https://api.weather.gov/icons/land/day/bkn/tsra_sct,50?size=medium"
                         "https://api.weather.gov/icons/land/night/tsra_sct,50/tsra_sct,40?size=medium" */}
                         {/* <img className="weather-icon" src={segment.icon}/> */}
-                        <div className="weather-info"style={{backgroundImage: `linear-gradient(271deg, transparent, white)`}}>
+                        <div className="weather-info"style={{backgroundImage: `linear-gradient(0deg, transparent, white)`}}>
                             <h5>{segment.name}: {segment.temperature} degrees</h5>
                             <p>{segment.shortForecast}.</p>
-                            <p>{segment.relativeHumidity.value} percent humidity.</p>
+                            {/* <p>{segment.relativeHumidity.value} percent humidity.</p> */}
                             <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
                             <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}</p>
-                            <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p>
+                            {/* <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p> */}
                         </div>
 
                     </div>
@@ -95,20 +100,20 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
             : 
             hourlyWeather.map((segment) => {
                 return (
-                    <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} >
-                        <img className="weather-icon" src={segment.icon}/>
-                        <h5>{segment.startTime.slice(11,16)} : {segment.temperature} degrees</h5>
-                        <p>{segment.shortForecast}.</p>
-                        <p>{segment.relativeHumidity.value} percent humidity.</p>
-                        <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
-                        <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}</p>
-                        <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p>
+                    <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} style={{ backgroundImage: `url(${segment.icon})` }}>
+                        <div className="weather-info"style={{backgroundImage: `linear-gradient(0deg, transparent, white)`}}>
+                            <h5>{segment.startTime.slice(11,16)} : {segment.temperature} degrees</h5>
+                            <p>{segment.shortForecast}.</p>
+                            <p>{segment.relativeHumidity.value} percent humidity.</p>
+                            <p>{segment.probabilityOfPrecipitation.value} percent chance of precipitation.</p>
+                            <p>Windspeed: {segment.windSpeed} from the {segment.windDirection}</p>
+                            <p>Dewpoint: {Math.round(segment.dewpoint.value)} degrees Celcius.</p>
+                        </div>
                     </div>
                 )
             })
             
             }
-            
         </div>
     )
 };
