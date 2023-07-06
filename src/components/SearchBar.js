@@ -13,18 +13,14 @@ export const SearchBar = ({secret}) => {
 
     const geocodeAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
 
+    // const handleAddressSearch = (event) => {
+    //     event.preventDefault();
+    //     addressFromSearch();
+    // }
+
     const addressFromSearch = async() => {
-        // const [houseNum, street, city, state, zip_code] = search.split(",");
+
         try {
-            // if (zip_code) {
-            //     console.log('We got a zip code.')
-            //     const zipcodeLatLong = await fetch(`${geocodeAPI}address=${zip_code}&key=${secret}`, {
-            //         method: "GET",
-            //     });
-            //     const zipResponse = await zipcodeLatLong.json();
-            //     console.log('zipResponse: ', zipResponse.results)
-            //     return zipResponse;
-            // } else {
                 const streetURI = encodeURI(street);
                 console.log('No zip code.')
                 const address = await fetch(`${geocodeAPI}address=${houseNum}%20${streetURI}%20${city}%20${state}&key=${secret}`, {
@@ -34,17 +30,17 @@ export const SearchBar = ({secret}) => {
                 console.log('response from address: ', response.results[0]);
                 setSearchResults(response.results[0])
                 return response.results;
-            // }
-    
         } catch (error) {
             console.log('there was an error searching for that address');
             throw error;
         }
-    }
+    };
 
 
     // Place Autocomplete API url
     // https://maps.googleapis.com/maps/api/place/autocomplete/json?components=country:us&key={secret}
+
+    // DOES NOT WORK CLIENT SIDE????
     const autosearchAPI = "https://maps.googleapis.com/maps/api/place/autocomplete/json?components=country:us"
     const weatherFromPostal = async() => {
         try {
@@ -66,56 +62,58 @@ export const SearchBar = ({secret}) => {
         }
     }
     
-    const fetchAddress = async () => {
-        try {
-            const resp = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${secret}`, {
-                method: "POST"
-            });
-            const latLong = await resp.json();
-            console.log(latLong);
-        } catch (error) {
-            console.log('there was an error fetching that address.')
-            throw error;
-        }
-    }
+    // const fetchAddress = async () => {
+    //     try {
+    //         const resp = await fetch(`https://www.googleapis.com/geolocation/v1/geolocate?key=${secret}`, {
+    //             method: "POST"
+    //         });
+    //         const latLong = await resp.json();
+    //         console.log(latLong);
+    //     } catch (error) {
+    //         console.log('there was an error fetching that address.')
+    //         throw error;
+    //     }
+    // }
 
     return (
         <div>
             <label htmlFor="search-bar">Search for an address ...</label>
+            <form className="search-bar" onSubmit={(e) => (e.preventDefault(), addressFromSearch())}>
             <input 
-                type="search"
+                type="number"
                 required
-                className="search-bar"
-                placeholder="House number" 
+                className="search-box"
+                placeholder="House number (required)" 
                 value={houseNum} 
                 onChange={(event) => setHouseNum(event.target.value)}>
             </input>
             <input 
-                type="search"
+                type="text"
                 required
-                className="search-bar"
-                placeholder="Street" 
+                className="search-box"
+                placeholder="Street (required)" 
                 value={street} 
                 onChange={(event) => setStreet(event.target.value)}>
             </input>
             <input 
-                type="search"
+                type="text"
                 required
-                className="search-bar"
-                placeholder="City" 
+                className="search-box"
+                placeholder="City (required)" 
                 value={city} 
                 onChange={(event) => setCity(event.target.value)}>
             </input>
             <input 
-                type="search"
+                type="text"
                 required
-                className="search-bar"
-                placeholder="State" 
+                className="search-box"
+                placeholder="State (required)" 
                 value={state} 
                 onChange={(event) => setState(event.target.value)}>
             </input>
+            <button type="submit">Search</button>
+            </form>
 
-            <button type="submit" onClick={addressFromSearch}>Search</button>
             {search.length < 1 ? null : (
                 <div className="search-results">
                     {searchResults.map((address) => {
