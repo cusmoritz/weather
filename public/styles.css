@@ -24,6 +24,8 @@
   thunderstorms: "https://img.freepik.com/premium-photo/thunderstorm-with-lightnings-stormy-sky-city-dramatic-weather-background-digital-illustrati_124507-12848.jpg"
   mostly clear: "https://c1.wallpaperflare.com/preview/106/652/872/sky-blue-cloud-clear.jpg"
   mostly_cloudy: "https://www.rochesterfirst.com/wp-content/uploads/sites/66/2021/04/sky-1107579_1920.jpg"
+  chanceShowers: "https://www.daytondailynews.com/resizer/xeOh2gu0nq48knBPICgaajKptIQ=/814x458/cloudfront-us-east-1.images.arcpublishing.com/coxohio/KMUEODEDFREO3ODHWC2FJT4SXM.jpg"
+
   */
 
   .weather-segment  {
@@ -40,10 +42,9 @@
     margin-bottom: 15px;
 }
 
-.weather-hourly{
+.hourly{
   display: flex;
   flex-direction:row;
-
 }
 
 .weather-info {
@@ -57,6 +58,7 @@
 
   .switcher {
     display: flex;
+    width: 100%;
     justify-content: space-around;
     padding-bottom: 5px;
     padding-top: 15px;

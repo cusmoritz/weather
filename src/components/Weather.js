@@ -7,6 +7,7 @@ import partlyCloudy from '../images/partlyCloudy.jpeg'
 import thunderstorms from '../images/thunderstorms.jpeg'
 import mostlyClear from '../images/mostlyClear.jpeg'
 import mostlyCloudy from '../images/mostlyCloudy.jpeg'
+import chanceShowers from '../images/chanceShowers.jpeg'
 
 export const Weather = ({hourlyWeather, standardWeather}) => {
     console.log('standard: ', standardWeather)
@@ -34,7 +35,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
     // }, [])
 
     return (
-        <div className="weather-container">
+        <div className="container">
             <div className="switcher">
                 {weatherType==true 
                 ?                 
@@ -48,23 +49,33 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
                     Switch to Daily
                 </button>}
             </div>
-            {/* "Chance Showers And Thunderstorms then Mostly Clear"
-            "Slight Chance Showers And Thunderstorms then Partly Cloudy"
-            "Partly Sunny then Chance Showers And Thunderstorms"
-            "Chance Showers And Thunderstorms"
-            "Slight Chance Rain Showers then Chance Showers And Thunderstorms"
-            "Chance Showers And Thunderstorms then Mostly Cloudy"
-            "Slight Chance Showers And Thunderstorms then Partly Cloudy"
-            "Partly Sunny then Chance Showers And Thunderstorms"
-            "Slight Chance Showers And Thunderstorms then Partly Cloudy" */}
-            
+            <div className="weather-container">
             {weatherType===true ? 
             standardWeather.map((segment) => {
-                if(segment.shortForecast.includes("Chance Showers And Thunderstorms")) {
-                    segment.icon=weatherImages.chanceOfRain
+
+                {/* "Chance Showers And Thunderstorms then Mostly Clear"
+                "Slight Chance Showers And Thunderstorms then Partly Cloudy"
+                "Partly Sunny then Chance Showers And Thunderstorms"
+                "Chance Showers And Thunderstorms"
+                "Slight Chance Rain Showers then Chance Showers And Thunderstorms"
+                "Chance Showers And Thunderstorms then Mostly Cloudy"
+                "Slight Chance Showers And Thunderstorms then Partly Cloudy"
+                "Partly Sunny then Chance Showers And Thunderstorms"
+                "Slight Chance Showers And Thunderstorms then Partly Cloudy" 
+                Mostly Clear.
+                */}
+
+                // needs to be updated to leastFrequest -> most frequent so not repeating
+                // same photos so often
+                if(segment.shortForecast.includes("Chance Showers and Thunderstorms")) {
+                    segment.icon=weatherImages.chanceShowers;
                 } else if (segment.shortForecast.includes("Sunny")) {
-                    segment.icon=weatherImages.sunny
-                } else if (segment.shortForecast.includes("Partly Sunny" || "Mostly Clear")) {
+                    segment.icon=weatherImages.sunny;
+                } else if (segment.shortForecast.includes("Sunny")) {
+                    segment.icon=weatherImages.sunny;
+                } else if (segment.shortForecast.includes("Mostly Clear")) {
+                    segment.icon=weatherImages.mostlyClear;
+                } else if (segment.shortForecast.includes("Partly Sunny")) {
                     segment.icon=weatherImages.partlyCloudy
                 } else if (segment.shortForecast.includes("Thunderstorms")) {
                     segment.icon=weatherImages.thunderstorms
@@ -77,14 +88,11 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
                 }
                 // `url(${segment.icon})`
                 return (
-                    <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} style={{
-                        backgroundImage: `url(${segment.icon})`,
-                      }}>
-                        {/* "https://api.weather.gov/icons/land/day/tsra_hi,30?size=medium"
-                        "https://api.weather.gov/icons/land/day/few?size=medium"
-                        "https://api.weather.gov/icons/land/day/bkn/tsra_sct,50?size=medium"
-                        "https://api.weather.gov/icons/land/night/tsra_sct,50/tsra_sct,40?size=medium" */}
-                        {/* <img className="weather-icon" src={segment.icon}/> */}
+                    <div 
+                        className={`weather-segment ${segment.temperature}`} 
+                        key={segment.endTime} 
+                        style={{ backgroundImage: `url(${segment.icon})` }}>
+                            
                         <div className="weather-info"style={{backgroundImage: `linear-gradient(0deg, transparent, white)`}}>
                             <h5>{segment.name}: {segment.temperature} degrees</h5>
                             <p>{segment.shortForecast}.</p>
@@ -101,7 +109,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
             hourlyWeather.map((segment) => {
                 return (
                     <div className={`weather-segment ${segment.temperature}`} key={segment.endTime} style={{ backgroundImage: `url(${segment.icon})` }}>
-                        <div className="weather-info"style={{backgroundImage: `linear-gradient(0deg, transparent, white)`}}>
+                        <div className="weather-info hourly" style={{ backgroundImage: `linear-gradient(0deg, transparent, white)` }}>
                             <h5>{segment.startTime.slice(11,16)} : {segment.temperature} degrees</h5>
                             <p>{segment.shortForecast}.</p>
                             <p>{segment.relativeHumidity.value} percent humidity.</p>
@@ -114,6 +122,7 @@ export const Weather = ({hourlyWeather, standardWeather}) => {
             })
             
             }
-        </div>
+        </div>    
+    </div>
     )
 };
