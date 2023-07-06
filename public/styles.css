@@ -27,7 +27,34 @@
   chanceShowers: "https://www.daytondailynews.com/resizer/xeOh2gu0nq48knBPICgaajKptIQ=/814x458/cloudfront-us-east-1.images.arcpublishing.com/coxohio/KMUEODEDFREO3ODHWC2FJT4SXM.jpg"
 
   */
+.component-container{
+  min-height: 200px;
+  height: 100%;
+  opacity: 0.9;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-color:red;
+  /* box-shadow: 10px 10px 5px lightblue;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 15px; */
+  margin-bottom: 15px;
+}
 
+.weather-container-standard{
+
+}
+
+.weather-container-hourly{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.weather-container {
+  border: 2px dashed black;
+}
   .weather-segment  {
     min-height: 200px;
     height: 100%;
@@ -42,14 +69,36 @@
     margin-bottom: 15px;
 }
 
-.hourly{
+.weather-segment-hourly {
+  height: 100%;
+  opacity: 0.9;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  box-shadow: 10px 10px 5px lightblue;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 15px;
+  margin-bottom: 10px;
+}
+
+/* .hourly{
   display: flex;
   flex-direction:row;
-}
+} */
 
 .weather-info {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding-left: 1%;
+}
+
+.weather-info-hourly{
+  display: flex;
+  /* flex-direction: column; */
   align-items: center;
   height: 100%;
   width: 100%;
