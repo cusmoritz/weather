@@ -147,4 +147,6 @@ latLongFromAddress(fakeAddress);
 
 module.exports = {
     locationCall,
+    latLongFromAddress,
+    
 }
