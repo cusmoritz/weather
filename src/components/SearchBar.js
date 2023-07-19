@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 const cors = require('cors');
 
-export const SearchBar = ({secret}) => {
+export const SearchBar = ({secret, setLoading}) => {
     
     const [search, setSearch] = useState("");
     const [postalCode, setPostalCode] = useState("");
@@ -19,7 +19,7 @@ export const SearchBar = ({secret}) => {
     // }
 
     const addressFromSearch = async() => {
-
+        setLoading(true)
         try {
                 const streetURI = encodeURI(street);
                 console.log('No zip code.')
@@ -29,6 +29,7 @@ export const SearchBar = ({secret}) => {
                 const response = await address.json();
                 console.log('response from address: ', response.results[0]);
                 setSearchResults(response.results[0])
+                setLoading(false)
                 return response.results;
         } catch (error) {
             console.log('there was an error searching for that address');

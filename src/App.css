@@ -27,6 +27,19 @@
   chanceShowers: "https://www.daytondailynews.com/resizer/xeOh2gu0nq48knBPICgaajKptIQ=/814x458/cloudfront-us-east-1.images.arcpublishing.com/coxohio/KMUEODEDFREO3ODHWC2FJT4SXM.jpg"
 
   */
+
+.loading {
+    background-color: "transparent";
+    box-shadow: none;
+    display: "flex";
+    overflow: "none";
+    width: "100%";
+    padding: "0";
+    margin: "0";
+    height: "100%";
+    min-width: "100%";
+    justify-content: "center"
+}
 .component-container{
   min-height: 200px;
   height: 100%;

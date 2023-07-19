@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer";
 import { ReactDOM } from "react";
 import { LoadGuess } from "./components/LoadGuess";
 import { Weather } from "./components/Weather";
+import { setLoading } from "./components/Loading";
 
 const SECRET = process.env.REACT_APP_GOOGLE_API;
 
@@ -13,10 +14,21 @@ const weatherCoordsPath = "https://api.weather.gov/points/";
 
 export const App = () => {
 
+    // FALSE = loading not active
+    const [loading, setLoading] = useState(false)
     const [locationLoad, setLocationLoad] = useState({});
     const [postalLoad, setPostalLoad] = useState("");
     const [standardWeather, setStandardWeather] = useState({});
     const [hourlyWeather, setHourlyWeather] = useState({})
+
+
+    const Loading = () => {
+        return (
+            <div className="loading">
+                <h3>Loading ...</h3>
+            </div>
+        )
+    }
 
     // function that finds estimated coordinates for a device
     const locationCall = async () => {
@@ -25,7 +37,7 @@ export const App = () => {
                 method: "POST",
             });
             const finding = await location.json();
-            console.log('coords,', finding);
+            console.log('coords,', finding.location);
             setLocationLoad(finding.location)
             return finding.location;
         } catch (error) {
@@ -41,8 +53,9 @@ export const App = () => {
             });
             // console.log('response', response)
             const address = await response.json();
-            console.log('address: ', address.results[0].address_components[6].long_name);
-            setPostalLoad(address.results[0].address_components[6].long_name)
+            console.log('look here', address.results[0].address_components[address_components.length])
+            console.log('address: ', address.results[0].address_components[-1].long_name);
+            setPostalLoad(address.results[0].address_components[-1].long_name)
             return address.results[0].address_components[6].long_name;
         } catch (error) {
             console.log('there was an error getting an address')
@@ -54,6 +67,7 @@ export const App = () => {
     }, [])
 
     const confirmPostal = async () => {
+
         try {
             const response = await fetch(`${weatherCoordsPath}${locationLoad.lat}%2C${locationLoad.lng}`, {
                 method: "GET",
@@ -92,7 +106,7 @@ export const App = () => {
             <h1>Chance of Rain</h1>
             <p>{locationLoad.lat}, {locationLoad.lng}</p>
             {!postalLoad ? console.log("Nope") : <p>Looks like you are near {postalLoad}. <button onClick={confirmPostal}>Use that?</button></p>}
-            <SearchBar secret={SECRET} />
+            <SearchBar secret={SECRET} setLoading={setLoading}/>
             <hr />
             {(Object.keys(standardWeather).length === 0 && Object.keys(hourlyWeather).length === 0) ? null : <Weather hourlyWeather={hourlyWeather} standardWeather={standardWeather}/>}
             <Footer />
