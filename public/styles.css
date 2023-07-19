@@ -5,13 +5,13 @@
     border: 0;
   }
 
-  :root {
+  /* :root {
     --light-rain: linear-gradient(to right, rgb(255 255 255), rgb(255 255 255 / 0%)), url('https://media.istockphoto.com/id/858244850/video/light-rain.jpg?s=640x640&k=20&c=JEGUVEaEwbtnotmheeLPAMWEUcVF-NTXHyoXBU9RiLw=');
     --heavy-rain: linear-gradient(to right, rgb(255 255 255), rgb(255 255 255 / 0%)), url('https://as1.ftcdn.net/v2/jpg/03/49/72/06/1000_F_349720606_GPSQYgCUPSq9WcbtBtdALvKIL0kkC8yJ.jpg');
     --windy: linear-gradient(to right, rgb(255 255 255), rgb(255 255 255 / 0%)), url('https://media.istockphoto.com/id/1443077430/photo/dry-grass-with-long-stems-in-windy-weather-sunny-autumn-day-nature-abstract-background.webp?b=1&s=170667a&w=0&k=20&c=IvLqmYbkppccVO0e4S6YcIzOMd9XSpc5-bXwfnJ1P98=');
     --light_snow: linear-gradient(to right, rgb(255 255 255), rgb(255 255 255 / 0%)), url('https://img5.goodfon.com/wallpaper/big/5/6c/zima-sneg-sugroby-tekstura.jpg');
     --heavy_snow: linear-gradient(to right, rgb(255 255 255), rgb(255 255 255 / 0%)), url('https://previews.123rf.com/images/kobzev3179/kobzev31791911/kobzev3179191100047/135096576-falling-snow-on-a-black-background-heavy-snowfall-concept-winter-snow-background-blizzard.jpg');
-  }
+  } */
 
   /* light rain: 'https://media.istockphoto.com/id/858244850/video/light-rain.jpg?s=640x640&k=20&c=JEGUVEaEwbtnotmheeLPAMWEUcVF-NTXHyoXBU9RiLw='
   heavy rain: 'https://as1.ftcdn.net/v2/jpg/03/49/72/06/1000_F_349720606_GPSQYgCUPSq9WcbtBtdALvKIL0kkC8yJ.jpg' 

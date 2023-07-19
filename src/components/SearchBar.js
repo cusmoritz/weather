@@ -79,35 +79,39 @@ export const SearchBar = ({secret}) => {
         <div>
             <label htmlFor="search-bar">Search for an address ...</label>
             <form className="search-bar" onSubmit={(e) => (e.preventDefault(), addressFromSearch())}>
+            <label htmlFor="house-input">House number*</label>
             <input 
+                className="house-input"
                 type="number"
                 required
-                className="search-box"
-                placeholder="House number (required)" 
+                placeholder="House number" 
                 value={houseNum} 
                 onChange={(event) => setHouseNum(event.target.value)}>
             </input>
+            <label htmlFor="street-input">Street address*</label>
             <input 
+                className="street-input"
                 type="text"
                 required
-                className="search-box"
-                placeholder="Street (required)" 
+                placeholder="Street" 
                 value={street} 
                 onChange={(event) => setStreet(event.target.value)}>
             </input>
+            <label htmlFor="city-input">City*</label>
             <input 
                 type="text"
                 required
-                className="search-box"
-                placeholder="City (required)" 
+                className="city-input"
+                placeholder="City" 
                 value={city} 
                 onChange={(event) => setCity(event.target.value)}>
             </input>
+            <label htmlFor="state-input">State*</label>
             <input 
                 type="text"
                 required
-                className="search-box"
-                placeholder="State (required)" 
+                className="state-input"
+                placeholder="State" 
                 value={state} 
                 onChange={(event) => setState(event.target.value)}>
             </input>
