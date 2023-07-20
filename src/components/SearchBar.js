@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 const cors = require('cors');
 
-export const SearchBar = ({secret, setLoading, setLocationLoad, confirmPostal}) => {
+export const SearchBar = ({secret, setSearchCoords, findWeather}) => {
     
-    const [search, setSearch] = useState("");
-    const [postalCode, setPostalCode] = useState("");
-    const [searchResults, setSearchResults] = useState({});
+    const [postalCode, setPostalCode] = useState("")
     const [houseNum, setHouseNum] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
@@ -14,7 +12,7 @@ export const SearchBar = ({secret, setLoading, setLocationLoad, confirmPostal}) 
     const geocodeAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
 
     const addressFromSearch = async() => {
-        setLoading(true)
+
         try {
                 const streetURI = encodeURI(street);
                 console.log('No zip code.')
@@ -23,10 +21,9 @@ export const SearchBar = ({secret, setLoading, setLocationLoad, confirmPostal}) 
                 });
                 const response = await address.json();
                 console.log('response from address: ', response.results[0].geometry.location);
-                setSearchResults(response.results[0].geometry.location);
-                setLocationLoad(response.results[0].geometry.location)
-                setLoading(false)
-                return response.results;
+
+                setSearchCoords(response.results[0].geometry.location)
+                return response.results[0].geometry.location;
         } catch (error) {
             console.log('there was an error searching for that address');
             throw error;
@@ -72,10 +69,18 @@ export const SearchBar = ({secret, setLoading, setLocationLoad, confirmPostal}) 
     //     }
     // }
 
+    const searchHelper = async () => {
+        try {
+            await addressFromSearch().then((results) => findWeather(results.lat, results.lng))
+        } catch (error) {
+            console.log('there was a problem in the search helper');
+        }
+    }
+
     return (
         <div>
             <label htmlFor="search-bar">Search for an address ...</label>
-            <form className="search-bar" onSubmit={(e) => (e.preventDefault(), addressFromSearch())}>
+            <form className="search-bar" onSubmit={(e) => (e.preventDefault(), searchHelper())}>
             <label htmlFor="house-input">House number*</label>
             <input 
                 className="house-input"
@@ -112,10 +117,11 @@ export const SearchBar = ({secret, setLoading, setLocationLoad, confirmPostal}) 
                 value={state} 
                 onChange={(event) => setState(event.target.value)}>
             </input>
-            <button type="submit" onClick={confirmPostal}>Get weather</button>
+            <button type="submit">Get weather</button>
             </form>
 
-            {search.length < 1 ? null : (
+
+            {/* {search.length < 1 ? null : (
                 <div className="search-results">
                     {searchResults.map((address) => {
                         console.log(address)
@@ -124,7 +130,8 @@ export const SearchBar = ({secret, setLoading, setLocationLoad, confirmPostal}) 
                         )
                     })}
                 </div>
-            )}
+            )} */}
+
             <label htmlFor="postal-bar">... or a postal code.</label>
             <input 
                 type="search"
