@@ -1,22 +1,17 @@
 import { useState, useEffect } from "react";
 const cors = require('cors');
 
-export const SearchBar = ({secret, setLoading}) => {
+export const SearchBar = ({secret, setLoading, setLocationLoad, confirmPostal}) => {
     
     const [search, setSearch] = useState("");
     const [postalCode, setPostalCode] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState({});
     const [houseNum, setHouseNum] = useState("");
     const [street, setStreet] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
 
     const geocodeAPI = "https://maps.googleapis.com/maps/api/geocode/json?";
-
-    // const handleAddressSearch = (event) => {
-    //     event.preventDefault();
-    //     addressFromSearch();
-    // }
 
     const addressFromSearch = async() => {
         setLoading(true)
@@ -27,8 +22,9 @@ export const SearchBar = ({secret, setLoading}) => {
                     method: "GET",
                 });
                 const response = await address.json();
-                console.log('response from address: ', response.results[0]);
-                setSearchResults(response.results[0])
+                console.log('response from address: ', response.results[0].geometry.location);
+                setSearchResults(response.results[0].geometry.location);
+                setLocationLoad(response.results[0].geometry.location)
                 setLoading(false)
                 return response.results;
         } catch (error) {
@@ -116,7 +112,7 @@ export const SearchBar = ({secret, setLoading}) => {
                 value={state} 
                 onChange={(event) => setState(event.target.value)}>
             </input>
-            <button type="submit">Search</button>
+            <button type="submit" onClick={confirmPostal}>Get weather</button>
             </form>
 
             {search.length < 1 ? null : (

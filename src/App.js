@@ -19,7 +19,8 @@ export const App = () => {
     const [locationLoad, setLocationLoad] = useState({});
     const [postalLoad, setPostalLoad] = useState("");
     const [standardWeather, setStandardWeather] = useState({});
-    const [hourlyWeather, setHourlyWeather] = useState({})
+    const [hourlyWeather, setHourlyWeather] = useState({});
+    const [coordsFromAddressSearch, setCoordsFromAddressSearch] = useState({});
 
 
     const Loading = () => {
@@ -41,6 +42,7 @@ export const App = () => {
             setLocationLoad(finding.location)
             return finding.location;
         } catch (error) {
+            console.log('there was an error in locationCall')
             throw error;
         }
     };
@@ -51,11 +53,12 @@ export const App = () => {
             const response = await fetch(`${geocodeAPI}latlng=${lat},${long}&key=${SECRET}`, {
                 method: "GET",
             });
-            // console.log('response', response)
+
             const address = await response.json();
-            console.log('look here', address.results[0].address_components[address_components.length])
-            console.log('address: ', address.results[0].address_components[-1].long_name);
-            setPostalLoad(address.results[0].address_components[-1].long_name)
+
+            console.log('YOLO', address.results[0].address_components[5].long_name)
+
+            setPostalLoad(address.results[0].address_components[5].long_name)
             return address.results[0].address_components[6].long_name;
         } catch (error) {
             console.log('there was an error getting an address')
@@ -106,7 +109,7 @@ export const App = () => {
             <h1>Chance of Rain</h1>
             <p>{locationLoad.lat}, {locationLoad.lng}</p>
             {!postalLoad ? console.log("Nope") : <p>Looks like you are near {postalLoad}. <button onClick={confirmPostal}>Use that?</button></p>}
-            <SearchBar secret={SECRET} setLoading={setLoading}/>
+            <SearchBar secret={SECRET} setLoading={setLoading} setLocationLoad={setLocationLoad} confirmPostal={confirmPostal}/>
             <hr />
             {(Object.keys(standardWeather).length === 0 && Object.keys(hourlyWeather).length === 0) ? null : <Weather hourlyWeather={hourlyWeather} standardWeather={standardWeather}/>}
             <Footer />
