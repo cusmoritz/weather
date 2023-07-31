@@ -72,10 +72,10 @@ export const App = () => {
 
             const address = await response.json();
 
-            console.log('YOLO', address.results[0].address_components[5].long_name)
+            console.log('YOLO', address.results[0].address_components[address.results[0].address_components.length - 1].long_name)
 
             // sets the postal code to state for reference later
-            setPostalLoad(address.results[0].address_components[5].long_name)
+            setPostalLoad(address.results[0].address_components[address.results[0].address_components.length - 1].long_name)
             return address.results[0].address_components[6].long_name;
         } catch (error) {
             console.log('there was an error getting an address')
